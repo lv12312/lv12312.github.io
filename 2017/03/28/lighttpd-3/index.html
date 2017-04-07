@@ -88,18 +88,21 @@
 
 
 <meta name="description" content="基础Unix/Linux 下可用的 IO 模型有这几种，为阻塞 IO、非阻塞 IO、IO 多路转接（复用）、信号驱动 IO（SIGIO） 和 异步 IO (AIO)。Windows 下面有 Windows IOCP( I/O Completion Port)。
-阻塞 IO 模型简单的描述为：应用程序调用读函数，内核把数据准备好，复制到用户空间，然后返回给应用程序进行下一步处理。如下面的程序示例：">
+
+SIGIO、AIO 和 Win IOCP Lighttpd 1.4.45 并没有使用到，这里就不描述了，感兴趣的读者可以自行 Googl">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Lighttpd 源码分析（2）高级IO">
+<meta property="og:title" content="Lighttpd 源码分析（2）高级I/O基础">
 <meta property="og:url" content="http://yoursite.com/2017/03/28/lighttpd-3/index.html">
 <meta property="og:site_name" content="lv12312's blog">
 <meta property="og:description" content="基础Unix/Linux 下可用的 IO 模型有这几种，为阻塞 IO、非阻塞 IO、IO 多路转接（复用）、信号驱动 IO（SIGIO） 和 异步 IO (AIO)。Windows 下面有 Windows IOCP( I/O Completion Port)。
-阻塞 IO 模型简单的描述为：应用程序调用读函数，内核把数据准备好，复制到用户空间，然后返回给应用程序进行下一步处理。如下面的程序示例：">
-<meta property="og:updated_time" content="2017-04-05T16:32:47.000Z">
+
+SIGIO、AIO 和 Win IOCP Lighttpd 1.4.45 并没有使用到，这里就不描述了，感兴趣的读者可以自行 Googl">
+<meta property="og:updated_time" content="2017-04-06T23:05:23.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Lighttpd 源码分析（2）高级IO">
+<meta name="twitter:title" content="Lighttpd 源码分析（2）高级I/O基础">
 <meta name="twitter:description" content="基础Unix/Linux 下可用的 IO 模型有这几种，为阻塞 IO、非阻塞 IO、IO 多路转接（复用）、信号驱动 IO（SIGIO） 和 异步 IO (AIO)。Windows 下面有 Windows IOCP( I/O Completion Port)。
-阻塞 IO 模型简单的描述为：应用程序调用读函数，内核把数据准备好，复制到用户空间，然后返回给应用程序进行下一步处理。如下面的程序示例：">
+
+SIGIO、AIO 和 Win IOCP Lighttpd 1.4.45 并没有使用到，这里就不描述了，感兴趣的读者可以自行 Googl">
 
 
 
@@ -133,7 +136,7 @@
 
 
 
-  <title> Lighttpd 源码分析（2）高级IO | lv12312's blog </title>
+  <title> Lighttpd 源码分析（2）高级I/O基础 | lv12312's blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -293,7 +296,7 @@
             
             
               
-                Lighttpd 源码分析（2）高级IO
+                Lighttpd 源码分析（2）高级I/O基础
               
             
           </h1>
@@ -367,6 +370,9 @@
 
       
         <h2 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h2><p>Unix/Linux 下可用的 IO 模型有这几种，为阻塞 IO、非阻塞 IO、IO 多路转接（复用）、信号驱动 IO（SIGIO） 和 异步 IO (AIO)。<br>Windows 下面有 Windows IOCP( I/O Completion Port)。</p>
+<blockquote>
+<p>SIGIO、AIO 和 Win IOCP Lighttpd 1.4.45 并没有使用到，这里就不描述了，感兴趣的读者可以自行 Google。</p>
+</blockquote>
 <h3 id="阻塞-IO-模型"><a href="#阻塞-IO-模型" class="headerlink" title="阻塞 IO 模型"></a>阻塞 IO 模型</h3><p>简单的描述为：应用程序调用读函数，内核把数据准备好，复制到用户空间，然后返回给应用程序进行下一步处理。<br>如下面的程序示例：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">while</span>((n=read(STDIN_FILENO, buf, BUFSIZE))&gt; <span class="number">0</span>)&#123;</div><div class="line">    <span class="keyword">if</span>(write(STDOUT_FILENO, buf, n) != n)&#123;</div><div class="line">        <span class="comment">// write error.</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>如果在一个描述符下进行阻塞读，会导致被阻塞在一个描述符的读操作上而导致另一个描述符即使有数据也无法处理。只有有数据写出或者读入的时候，阻塞才会被解除。<br>在某些低速系统调用是可能使进程永远阻塞。</p>
@@ -415,7 +421,6 @@
 <h4 id="kqueue"><a href="#kqueue" class="headerlink" title="kqueue"></a>kqueue</h4><p>BSD平台使用的事件驱动机制，名称为内核事件通知机制（Kernel event notification mechanism）。提供了通用的事件监听方法，不只是可以处理 IO 事件。</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/event.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/time.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">kqueue</span><span class="params">(<span class="keyword">void</span>)</span></span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">kevent</span><span class="params">(<span class="keyword">int</span>	kq, <span class="keyword">const</span> <span class="keyword">struct</span> kevent	*changelist, <span class="keyword">int</span> nchanges,</span></span></div><div class="line">	 <span class="keyword">struct</span>	kevent *eventlist, <span class="keyword">int</span> nevents,</div><div class="line">	 <span class="keyword">const</span> <span class="keyword">struct</span> timespec *timeout);</div><div class="line"></div><div class="line">EV_SET(kev, ident, filter, flags, fflags, data, udata);</div></pre></td></tr></table></figure>
 <p>参数说明猛戳文档链接，<a href="https://www.freebsd.org/cgi/man.cgi?kqueue" target="_blank" rel="external">FreeBSD kqueue</a></p>
-<p>To be continued.</p>
 
       
     </div>
@@ -461,6 +466,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/04/07/lighttpd-4/" rel="prev" title="Lighttpd 源码分析（3）IO事件处理实现">
+                Lighttpd 源码分析（3）IO事件处理实现 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -532,7 +541,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
