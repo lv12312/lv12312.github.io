@@ -267,6 +267,147 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/08/lighttpd-5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lemon Lv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="lv12312's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/04/08/lighttpd-5/" itemprop="url">
+                  Lighttpd 源码分析（4）网络服务通信模型
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-08T15:27:40+08:00">
+                2017-04-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Lighttpd/" itemprop="url" rel="index">
+                    <span itemprop="name">Lighttpd</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="通信模型"><a href="#通信模型" class="headerlink" title="通信模型"></a>通信模型</h2><p>通信模型图，以 <code>select</code> 为例：</p>
+<p><img src="/2017/04/08/lighttpd-5/network.png" alt="img"></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/07/lighttpd-4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -395,8 +536,6 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">int network_register_fdevents(server *srv) &#123;</div><div class="line">	size_t i;</div><div class="line"></div><div class="line">	if (-1 == fdevent_reset(srv-&gt;ev)) &#123;</div><div class="line">		return -1;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	if (srv-&gt;sockets_disabled) return 0; /* lighttpd -1 (one-shot mode) */</div><div class="line"></div><div class="line">	/* register fdevents after reset */</div><div class="line">	for (i = 0; i &lt; srv-&gt;srv_sockets.used; i++) &#123;</div><div class="line">		server_socket *srv_socket = srv-&gt;srv_sockets.ptr[i];</div><div class="line"></div><div class="line">		fdevent_register(srv-&gt;ev, srv_socket-&gt;fd, network_server_handle_fdevent, srv_socket);</div><div class="line">		fdevent_event_set(srv-&gt;ev, &amp;(srv_socket-&gt;fde_ndx), srv_socket-&gt;fd, FDEVENT_IN);</div><div class="line">	&#125;</div><div class="line">	return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>初始化和注册完成后，执行<code>fdevent_fcntl_set_nb_cloexec_sock</code> 设置网络监听描述符的属性，设置<code>O_NONBLOCK</code>,<code>O_RDWR</code>，<code>FD_CLOEXEC</code> 属性。<br>接下来进入主循环：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 1000微秒轮询一次事件发生情况</span></div><div class="line"><span class="keyword">if</span> ((n = fdevent_poll(srv-&gt;ev, <span class="number">1000</span>)) &gt; <span class="number">0</span>) &#123;</div><div class="line">			<span class="comment">/* n is the number of events */</span></div><div class="line">			<span class="keyword">int</span> revents;</div><div class="line">			<span class="keyword">int</span> fd_ndx;</div><div class="line">			last_active_ts = srv-&gt;cur_ts;</div><div class="line">			fd_ndx = <span class="number">-1</span>;</div><div class="line">            <span class="comment">// 循环处理事件</span></div><div class="line">			<span class="keyword">do</span> &#123;</div><div class="line">				fdevent_handler handler;</div><div class="line">				<span class="keyword">void</span> *context;</div><div class="line"></div><div class="line">				fd_ndx  = fdevent_event_next_fdndx (srv-&gt;ev, fd_ndx);</div><div class="line">				<span class="keyword">if</span> (<span class="number">-1</span> == fd_ndx) <span class="keyword">break</span>; <span class="comment">/* not all fdevent handlers know how many fds got an event */</span></div><div class="line"></div><div class="line">				revents = fdevent_event_get_revent (srv-&gt;ev, fd_ndx);</div><div class="line">				fd      = fdevent_event_get_fd     (srv-&gt;ev, fd_ndx);</div><div class="line">				handler = fdevent_get_handler(srv-&gt;ev, fd);</div><div class="line">				context = fdevent_get_context(srv-&gt;ev, fd);</div><div class="line">				<span class="keyword">if</span> (<span class="literal">NULL</span> != handler) &#123;</div><div class="line">                    <span class="comment">// 处理</span></div><div class="line">					(*handler)(srv, context, revents);</div><div class="line">				&#125;</div><div class="line">			&#125; <span class="keyword">while</span> (--n &gt; <span class="number">0</span>);</div><div class="line">			fdevent_sched_run(srv, srv-&gt;ev);</div><div class="line">		&#125; <span class="keyword">else</span> <span class="keyword">if</span> (n &lt; <span class="number">0</span> &amp;&amp; errno != EINTR) &#123;</div><div class="line">			log_error_write(srv, __FILE__, __LINE__, <span class="string">"ss"</span>,</div><div class="line">					<span class="string">"fdevent_poll failed:"</span>,</div><div class="line">					strerror(errno));</div><div class="line">		&#125;</div></pre></td></tr></table></figure>
-<p>(To be continued.)</p>
-
           
         
       
@@ -1277,7 +1416,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
