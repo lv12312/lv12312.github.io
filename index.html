@@ -267,6 +267,208 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/12/mysql-sql/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lemon Lv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="lv12312's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/04/12/mysql-sql/" itemprop="url">
+                  MySQL 开发最佳实践
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-12T23:13:19+08:00">
+                2017-04-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MySQL/" itemprop="url" rel="index">
+                    <span itemprop="name">MySQL</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="表设计"><a href="#表设计" class="headerlink" title="表设计"></a>表设计</h2><ul>
+<li>表必须定义主键，默认为 ID，整型自增</li>
+<li>禁止使用外键，使用外键性能和扩展性会随着业务增长大打折扣，一些开源项目中使用表设计需要针对这些进行调整</li>
+<li>字符集优先选择 UTF-8，避免后面国际化带来的迁移问题</li>
+<li>必须添加 <code>gmt_create</code>, <code>gmt_modified</code> 字段标记创建时间和修改时间</li>
+<li>超过 500万行或者容量超过 10G 考虑分表设计</li>
+<li>单条记录大小禁止超过 8K</li>
+</ul>
+<h2 id="字段设计"><a href="#字段设计" class="headerlink" title="字段设计"></a>字段设计</h2><ul>
+<li>索引列为 <code>not null</code>，并设置 <code>default</code>值。</li>
+<li>禁止使用 <code>float</code>,<code>double</code> 类型， 使用 <code>decimal</code>, <code>int</code> 替代</li>
+<li>禁止使用 <code>blob</code>, <code>text</code> 存储图片，文件等数据</li>
+</ul>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ul>
+<li>禁止使用存储过程、触发器、函数、视图、时间等 MySQL 高级功能</li>
+<li>禁止使用跨库查询</li>
+<li>避免使用子查询，最好使用关联查询</li>
+<li>语句尽量避免使用大量的计算操作、多表关联、表遍历等操作</li>
+<li><code>varchar</code>长度避免过长，需要根据业务合理设置</li>
+<li>配置慢查询日志，做好监控</li>
+</ul>
+<h2 id="索引优化"><a href="#索引优化" class="headerlink" title="索引优化"></a>索引优化</h2><h3 id="去除重复的索引"><a href="#去除重复的索引" class="headerlink" title="去除重复的索引"></a>去除重复的索引</h3><p>重复索引有两个副作用</p>
+<ol>
+<li>所有的 DML 语句将变得比较慢</li>
+<li>数据库的磁盘占用量将会更大，备份恢复需要更长时间</li>
+</ol>
+<p>可以使用工具检查是否使用重复索引，工具可 Google 下</p>
+<h3 id="删除不用的索引"><a href="#删除不用的索引" class="headerlink" title="删除不用的索引"></a>删除不用的索引</h3><p>可使用监控工具来监控表的索引数据的使用情况，定期将无用的索引移除掉，提升 DML 的速度以及减少磁盘的占用大小。</p>
+<h3 id="索引列的优化"><a href="#索引列的优化" class="headerlink" title="索引列的优化"></a>索引列的优化</h3><h4 id="使用合适的数据类型"><a href="#使用合适的数据类型" class="headerlink" title="使用合适的数据类型"></a>使用合适的数据类型</h4><ol>
+<li>主键使用 INT 而不是用 BIGINT，减少因索引带来的磁盘占用</li>
+<li>TIMESTAMP 类型占用4字节，DATETIME 类型占用8字节，根据情况来选择</li>
+<li>最好将列设置为 <code>NOT NULL</code>，尤其是初始设计时。</li>
+</ol>
+<h4 id="简化-SQL-语句"><a href="#简化-SQL-语句" class="headerlink" title="简化 SQL 语句"></a>简化 SQL 语句</h4><ol>
+<li>精简返回字段，能少返回的就少返回</li>
+<li>谨慎使用子查询</li>
+</ol>
+<h2 id="InnoDB-参数"><a href="#InnoDB-参数" class="headerlink" title="InnoDB 参数"></a>InnoDB 参数</h2><ol>
+<li><code>innodb_buffer_pool_size</code> 比较重要的参数</li>
+</ol>
+<p>用来缓存索引和行数据的，设置越大磁盘 IO 越少，也不能过大，防止频繁的 swap 调度，消耗过多的资源，一般设置为物理内存的 50%~80% 左右。</p>
+<ol>
+<li><code>innodb_additional_mem_pool</code></li>
+</ol>
+<p>存放 InnoDB 的内部目录，除了缓存表数据和索引外, 可以为操作所需的其他内部项分配缓存来提升 InnoDB 的性能，系统会自动调整，一般设置为 8M，表比较多可以适当增大。</p>
+<ol>
+<li><code>innodb_log_file_size</code></li>
+</ol>
+<p>指定日志的大小， 可设置为 4G 以下</p>
+<ol>
+<li><code>innodb_log_buffer_size</code></li>
+</ol>
+<p>事务在内存中缓存，控制在 2-8M，可适当增大</p>
+<ol>
+<li><code>innodb_file_per_table</code></li>
+</ol>
+<p>使每个Innodb的表，有自已独立的表空间。如删除文件后可以回收那部分空间。一般设置为1，对清理数据比较方便。</p>
+<ol>
+<li><p><code>innodb_flush_method</code><br>linux 设置为 <code>O_DIRECT</code> 直接写磁盘。</p>
+</li>
+<li><p><code>innodb_flush_neighbors</code><br>SSD 上设置为0，顺序写对 SSD 没有提升</p>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/08/lighttpd-5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1416,7 +1618,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1425,7 +1627,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1434,7 +1636,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
