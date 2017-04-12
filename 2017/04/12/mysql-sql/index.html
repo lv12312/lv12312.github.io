@@ -87,7 +87,7 @@
 
 
 
-<meta name="description" content="1 表设计
+<meta name="description" content="1. 表设计
 表必须定义主键，默认为 ID，整型自增
 禁止使用外键，使用外键性能和扩展性会随着业务增长大打折扣，一些开源项目中使用表设计需要针对这些进行调整
 字符集优先选择 UTF-8，避免后面国际化带来的迁移问题
@@ -95,13 +95,12 @@
 超过 500万行或者容量超过 10G 考虑分表设计
 单条记录大小禁止超过 8K
 
-2 字段设计
-索">
+2. 字段设计">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MySQL 开发最佳实践">
 <meta property="og:url" content="http://yoursite.com/2017/04/12/mysql-sql/index.html">
 <meta property="og:site_name" content="lv12312's blog">
-<meta property="og:description" content="1 表设计
+<meta property="og:description" content="1. 表设计
 表必须定义主键，默认为 ID，整型自增
 禁止使用外键，使用外键性能和扩展性会随着业务增长大打折扣，一些开源项目中使用表设计需要针对这些进行调整
 字符集优先选择 UTF-8，避免后面国际化带来的迁移问题
@@ -109,12 +108,11 @@
 超过 500万行或者容量超过 10G 考虑分表设计
 单条记录大小禁止超过 8K
 
-2 字段设计
-索">
-<meta property="og:updated_time" content="2017-04-12T16:48:01.000Z">
+2. 字段设计">
+<meta property="og:updated_time" content="2017-04-12T16:49:47.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySQL 开发最佳实践">
-<meta name="twitter:description" content="1 表设计
+<meta name="twitter:description" content="1. 表设计
 表必须定义主键，默认为 ID，整型自增
 禁止使用外键，使用外键性能和扩展性会随着业务增长大打折扣，一些开源项目中使用表设计需要针对这些进行调整
 字符集优先选择 UTF-8，避免后面国际化带来的迁移问题
@@ -122,8 +120,7 @@
 超过 500万行或者容量超过 10G 考虑分表设计
 单条记录大小禁止超过 8K
 
-2 字段设计
-索">
+2. 字段设计">
 
 
 
@@ -400,7 +397,7 @@
       
 
       
-        <h2 id="1-表设计"><a href="#1-表设计" class="headerlink" title="1 表设计"></a>1 表设计</h2><ul>
+        <h2 id="1-表设计"><a href="#1-表设计" class="headerlink" title="1. 表设计"></a>1. 表设计</h2><ul>
 <li>表必须定义主键，默认为 ID，整型自增</li>
 <li>禁止使用外键，使用外键性能和扩展性会随着业务增长大打折扣，一些开源项目中使用表设计需要针对这些进行调整</li>
 <li>字符集优先选择 UTF-8，避免后面国际化带来的迁移问题</li>
@@ -408,12 +405,12 @@
 <li>超过 500万行或者容量超过 10G 考虑分表设计</li>
 <li>单条记录大小禁止超过 8K</li>
 </ul>
-<h2 id="2-字段设计"><a href="#2-字段设计" class="headerlink" title="2 字段设计"></a>2 字段设计</h2><ul>
+<h2 id="2-字段设计"><a href="#2-字段设计" class="headerlink" title="2. 字段设计"></a>2. 字段设计</h2><ul>
 <li>索引列为 <code>not null</code>，并设置 <code>default</code>值。</li>
 <li>禁止使用 <code>float</code>,<code>double</code> 类型， 使用 <code>decimal</code>, <code>int</code> 替代</li>
 <li>禁止使用 <code>blob</code>, <code>text</code> 存储图片，文件等数据</li>
 </ul>
-<h2 id="3-其他"><a href="#3-其他" class="headerlink" title="3 其他"></a>3 其他</h2><ul>
+<h2 id="3-其他"><a href="#3-其他" class="headerlink" title="3. 其他"></a>3. 其他</h2><ul>
 <li>禁止使用存储过程、触发器、函数、视图、时间等 MySQL 高级功能</li>
 <li>禁止使用跨库查询</li>
 <li>避免使用子查询，最好使用关联查询</li>
@@ -421,7 +418,7 @@
 <li><code>varchar</code>长度避免过长，需要根据业务合理设置</li>
 <li>配置慢查询日志，做好监控</li>
 </ul>
-<h2 id="4-索引优化"><a href="#4-索引优化" class="headerlink" title="4 索引优化"></a>4 索引优化</h2><h3 id="4-1-去除重复的索引"><a href="#4-1-去除重复的索引" class="headerlink" title="4.1 去除重复的索引"></a>4.1 去除重复的索引</h3><p>重复索引有两个副作用</p>
+<h2 id="4-索引优化"><a href="#4-索引优化" class="headerlink" title="4. 索引优化"></a>4. 索引优化</h2><h3 id="4-1-去除重复的索引"><a href="#4-1-去除重复的索引" class="headerlink" title="4.1 去除重复的索引"></a>4.1 去除重复的索引</h3><p>重复索引有两个副作用</p>
 <ol>
 <li>所有的 DML 语句将变得比较慢</li>
 <li>数据库的磁盘占用量将会更大，备份恢复需要更长时间</li>
@@ -437,13 +434,32 @@
 <li>精简返回字段，能少返回的就少返回</li>
 <li>谨慎使用子查询</li>
 </ol>
-<h2 id="5-InnoDB-参数"><a href="#5-InnoDB-参数" class="headerlink" title="5 InnoDB 参数"></a>5 InnoDB 参数</h2><h3 id="1-innodb-buffer-pool-size-比较重要的参数"><a href="#1-innodb-buffer-pool-size-比较重要的参数" class="headerlink" title="1. innodb_buffer_pool_size 比较重要的参数"></a>1. <code>innodb_buffer_pool_size</code> 比较重要的参数</h3><p>用来缓存索引和行数据的，设置越大磁盘 IO 越少，也不能过大，防止频繁的 swap 调度，消耗过多的资源，一般设置为物理内存的 50%~80% 左右。</p>
-<h3 id="2-innodb-additional-mem-pool"><a href="#2-innodb-additional-mem-pool" class="headerlink" title="2. innodb_additional_mem_pool"></a>2. <code>innodb_additional_mem_pool</code></h3><p>存放 InnoDB 的内部目录，除了缓存表数据和索引外, 可以为操作所需的其他内部项分配缓存来提升 InnoDB 的性能，系统会自动调整，一般设置为 8M，表比较多可以适当增大。</p>
-<h3 id="3-innodb-log-file-size"><a href="#3-innodb-log-file-size" class="headerlink" title="3. innodb_log_file_size"></a>3. <code>innodb_log_file_size</code></h3><p>指定日志的大小， 可设置为 4G 以下</p>
-<h3 id="4-innodb-log-buffer-size"><a href="#4-innodb-log-buffer-size" class="headerlink" title="4. innodb_log_buffer_size"></a>4. <code>innodb_log_buffer_size</code></h3><p>事务在内存中缓存，控制在 2-8M，可适当增大</p>
-<h3 id="5-innodb-file-per-table"><a href="#5-innodb-file-per-table" class="headerlink" title="5. innodb_file_per_table"></a>5. <code>innodb_file_per_table</code></h3><p>使每个Innodb的表，有自已独立的表空间。如删除文件后可以回收那部分空间。一般设置为1，对清理数据比较方便。</p>
-<h3 id="6-innodb-flush-method"><a href="#6-innodb-flush-method" class="headerlink" title="6. innodb_flush_method"></a>6. <code>innodb_flush_method</code></h3><p>linux 设置为 <code>O_DIRECT</code> 直接写磁盘。</p>
-<h3 id="7-innodb-flush-neighbors"><a href="#7-innodb-flush-neighbors" class="headerlink" title="7. innodb_flush_neighbors"></a>7. <code>innodb_flush_neighbors</code></h3><p>SSD 上设置为0，顺序写对 SSD 没有提升</p>
+<h2 id="5-InnoDB-参数"><a href="#5-InnoDB-参数" class="headerlink" title="5. InnoDB 参数"></a>5. InnoDB 参数</h2><ul>
+<li><code>innodb_buffer_pool_size</code> 比较重要的参数</li>
+</ul>
+<p>用来缓存索引和行数据的，设置越大磁盘 IO 越少，也不能过大，防止频繁的 swap 调度，消耗过多的资源，一般设置为物理内存的 50%~80% 左右。</p>
+<ul>
+<li><code>innodb_additional_mem_pool</code></li>
+</ul>
+<p>存放 InnoDB 的内部目录，除了缓存表数据和索引外, 可以为操作所需的其他内部项分配缓存来提升 InnoDB 的性能，系统会自动调整，一般设置为 8M，表比较多可以适当增大。</p>
+<ul>
+<li><code>innodb_log_file_size</code></li>
+</ul>
+<p>指定日志的大小， 可设置为 4G 以下</p>
+<ul>
+<li><code>innodb_log_buffer_size</code></li>
+</ul>
+<p>事务在内存中缓存，控制在 2-8M，可适当增大</p>
+<ul>
+<li><code>innodb_file_per_table</code></li>
+</ul>
+<p>使每个Innodb的表，有自已独立的表空间。如删除文件后可以回收那部分空间。一般设置为1，对清理数据比较方便。</p>
+<ul>
+<li><p><code>innodb_flush_method</code><br>linux 设置为 <code>O_DIRECT</code> 直接写磁盘。</p>
+</li>
+<li><p><code>innodb_flush_neighbors</code><br>SSD 上设置为0，顺序写对 SSD 没有提升</p>
+</li>
+</ul>
 
       
     </div>
@@ -617,7 +633,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-表设计"><span class="nav-number">1.</span> <span class="nav-text">1 表设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-字段设计"><span class="nav-number">2.</span> <span class="nav-text">2 字段设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-其他"><span class="nav-number">3.</span> <span class="nav-text">3 其他</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-索引优化"><span class="nav-number">4.</span> <span class="nav-text">4 索引优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-去除重复的索引"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 去除重复的索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-删除不用的索引"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 删除不用的索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-索引列的优化"><span class="nav-number">4.3.</span> <span class="nav-text">4.3 索引列的优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3-1-使用合适的数据类型"><span class="nav-number">4.3.1.</span> <span class="nav-text">4.3.1 使用合适的数据类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3-2-简化-SQL-语句"><span class="nav-number">4.3.2.</span> <span class="nav-text">4.3.2 简化 SQL 语句</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-InnoDB-参数"><span class="nav-number">5.</span> <span class="nav-text">5 InnoDB 参数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-innodb-buffer-pool-size-比较重要的参数"><span class="nav-number">5.1.</span> <span class="nav-text">1. innodb_buffer_pool_size 比较重要的参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-innodb-additional-mem-pool"><span class="nav-number">5.2.</span> <span class="nav-text">2. innodb_additional_mem_pool</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-innodb-log-file-size"><span class="nav-number">5.3.</span> <span class="nav-text">3. innodb_log_file_size</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-innodb-log-buffer-size"><span class="nav-number">5.4.</span> <span class="nav-text">4. innodb_log_buffer_size</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-innodb-file-per-table"><span class="nav-number">5.5.</span> <span class="nav-text">5. innodb_file_per_table</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-innodb-flush-method"><span class="nav-number">5.6.</span> <span class="nav-text">6. innodb_flush_method</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-innodb-flush-neighbors"><span class="nav-number">5.7.</span> <span class="nav-text">7. innodb_flush_neighbors</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-表设计"><span class="nav-number">1.</span> <span class="nav-text">1. 表设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-字段设计"><span class="nav-number">2.</span> <span class="nav-text">2. 字段设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-其他"><span class="nav-number">3.</span> <span class="nav-text">3. 其他</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-索引优化"><span class="nav-number">4.</span> <span class="nav-text">4. 索引优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-去除重复的索引"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 去除重复的索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-删除不用的索引"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 删除不用的索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-索引列的优化"><span class="nav-number">4.3.</span> <span class="nav-text">4.3 索引列的优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3-1-使用合适的数据类型"><span class="nav-number">4.3.1.</span> <span class="nav-text">4.3.1 使用合适的数据类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3-2-简化-SQL-语句"><span class="nav-number">4.3.2.</span> <span class="nav-text">4.3.2 简化 SQL 语句</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-InnoDB-参数"><span class="nav-number">5.</span> <span class="nav-text">5. InnoDB 参数</span></a></li></ol></div>
             
 
           </div>
