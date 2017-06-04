@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Lighttpd," />
+  <meta name="keywords" content="Java," />
 
 
 
@@ -87,18 +87,25 @@
 
 
 
-<meta name="description" content="通信模型通信模型图，以 select 为例：">
+<meta name="description" content="为什么有 Java 8 ?多核处理器的出现，其他流行的编程语言的影响；同时环境给了语言压力，促使语言的进化。Java 8 带给程序员的是提供了更丰富、更有效率的编程范式，以前遇到的问题可以用更优雅的方式解决，如流式处理 (Stream processing)、函数式编程 ( functional programming)。
+Lambda 表达式Lambda 表达式可以分解成这几个概念：
+
+匿名：L">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Lighttpd 源码分析（4）网络服务通信模型">
-<meta property="og:url" content="http://yoursite.com/2017/04/08/lighttpd-5/index.html">
+<meta property="og:title" content="Java 8 新特性备忘">
+<meta property="og:url" content="http://yoursite.com/2017/05/01/java-8/index.html">
 <meta property="og:site_name" content="lv12312's blog">
-<meta property="og:description" content="通信模型通信模型图，以 select 为例：">
-<meta property="og:image" content="http://yoursite.com/2017/04/08/lighttpd-5/network.png">
-<meta property="og:updated_time" content="2017-04-09T13:25:47.000Z">
+<meta property="og:description" content="为什么有 Java 8 ?多核处理器的出现，其他流行的编程语言的影响；同时环境给了语言压力，促使语言的进化。Java 8 带给程序员的是提供了更丰富、更有效率的编程范式，以前遇到的问题可以用更优雅的方式解决，如流式处理 (Stream processing)、函数式编程 ( functional programming)。
+Lambda 表达式Lambda 表达式可以分解成这几个概念：
+
+匿名：L">
+<meta property="og:updated_time" content="2017-05-03T00:56:30.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Lighttpd 源码分析（4）网络服务通信模型">
-<meta name="twitter:description" content="通信模型通信模型图，以 select 为例：">
-<meta name="twitter:image" content="http://yoursite.com/2017/04/08/lighttpd-5/network.png">
+<meta name="twitter:title" content="Java 8 新特性备忘">
+<meta name="twitter:description" content="为什么有 Java 8 ?多核处理器的出现，其他流行的编程语言的影响；同时环境给了语言压力，促使语言的进化。Java 8 带给程序员的是提供了更丰富、更有效率的编程范式，以前遇到的问题可以用更优雅的方式解决，如流式处理 (Stream processing)、函数式编程 ( functional programming)。
+Lambda 表达式Lambda 表达式可以分解成这几个概念：
+
+匿名：L">
 
 
 
@@ -126,13 +133,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/04/08/lighttpd-5/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/05/01/java-8/"/>
 
 
 
 
 
-  <title> Lighttpd 源码分析（4）网络服务通信模型 | lv12312's blog </title>
+  <title> Java 8 新特性备忘 | lv12312's blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -271,7 +278,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/08/lighttpd-5/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/01/java-8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Lemon Lv">
@@ -292,7 +299,7 @@
             
             
               
-                Lighttpd 源码分析（4）网络服务通信模型
+                Java 8 新特性备忘
               
             
           </h2>
@@ -307,8 +314,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-08T15:27:40+08:00">
-                2017-04-08
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-01T19:51:14+08:00">
+                2017-05-01
               </time>
             
 
@@ -330,8 +337,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Lighttpd/" itemprop="url" rel="index">
-                    <span itemprop="name">Lighttpd</span>
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
                   </a>
                 </span>
 
@@ -348,7 +355,7 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a class="cloud-tie-join-count" href="/2017/04/08/lighttpd-5/#comments" itemprop="discussionUrl">
+                <a class="cloud-tie-join-count" href="/2017/05/01/java-8/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count join-count" itemprop="commentCount"></span>
                 </a>
               </span>
@@ -375,8 +382,37 @@
       
 
       
-        <h2 id="通信模型"><a href="#通信模型" class="headerlink" title="通信模型"></a>通信模型</h2><p>通信模型图，以 <code>select</code> 为例：</p>
-<p><img src="/2017/04/08/lighttpd-5/network.png" alt="img"></p>
+        <h2 id="为什么有-Java-8"><a href="#为什么有-Java-8" class="headerlink" title="为什么有 Java 8 ?"></a>为什么有 Java 8 ?</h2><p>多核处理器的出现，其他流行的编程语言的影响；同时环境给了语言压力，促使语言的进化。Java 8 带给程序员的是提供了更丰富、更有效率的编程范式，以前遇到的问题可以用更优雅的方式解决，如流式处理 (Stream processing)、函数式编程 ( functional programming)。</p>
+<h2 id="Lambda-表达式"><a href="#Lambda-表达式" class="headerlink" title="Lambda 表达式"></a>Lambda 表达式</h2><p>Lambda 表达式可以分解成这几个概念：</p>
+<ol>
+<li>匿名：Lambda 表达式没有一个显式的名称</li>
+<li>函数：Lambda 表达式不和任何一个方法相关联，但是它和函数一样的是具有参数列表、函数体和返回值，可能还会有异常抛出。</li>
+<li>可传递: Lambda 表达式可以作为参数传递给方法或者存储在变量中。</li>
+<li>简洁：不需要写大量的辅助代码，如匿名类中的成员方法名。</li>
+</ol>
+<p>代码示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">List&lt;Apple&gt; inventory = Arrays.asList(<span class="keyword">new</span> Apple(<span class="number">80</span>, <span class="string">"green"</span>), <span class="keyword">new</span> Apple(<span class="number">155</span>, <span class="string">"green"</span>), <span class="keyword">new</span> Apple(<span class="number">120</span>, <span class="string">"red"</span>));</div><div class="line">System.out.println(inventory);</div><div class="line"><span class="comment">//匿名类</span></div><div class="line">inventory.sort(<span class="keyword">new</span> Comparator&lt;Apple&gt;() &#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(Apple o1, Apple o2)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> o1.getWeight() - o2.getWeight();</div><div class="line">    &#125;</div><div class="line">&#125;);</div><div class="line"></div><div class="line">System.out.println(inventory);</div><div class="line"><span class="comment">//lambda 表达式（1）</span></div><div class="line">inventory.sort((Apple a1, Apple a2) -&gt; a2.getWeight() - a1.getWeight());</div><div class="line"></div><div class="line">System.out.println(inventory);</div><div class="line"><span class="comment">//lambda 表达式（2），使用方法引用</span></div><div class="line">inventory.sort(Comparator.comparingInt((Apple::getWeight)));</div><div class="line">System.out.println(inventory);</div></pre></td></tr></table></figure>
+<p>先看 lambda 表达式(1), 一个正则表达式分为三个部分。Lambda 参数，函数的参数映射关系；箭头(<code>-&gt;</code>) 将参数和函数体分开, Lambda 函数体。</p>
+<p>表达式为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">(parameters) -&gt; expression</div><div class="line"></div><div class="line">(parameters) -&gt; &#123; statements; &#125;</div></pre></td></tr></table></figure>
+<h3 id="什么时候使用-lambda-表达式"><a href="#什么时候使用-lambda-表达式" class="headerlink" title="什么时候使用 lambda 表达式"></a>什么时候使用 lambda 表达式</h3><p>存在函数式接口的时候使用，函数式接口是仅仅定义了一个抽象方法的接口。例如：<code>java.util.Comparator</code>,<code>java.lang.Runnable</code>,<code>java.util.concurrent.Callable</code>等等。</p>
+<p>Java 8 API 中有很多<code>@FunctionalInterface</code>注解的接口，来表示接口为函数式接口。如果不是函数式接口，打上该注解会产生编译错误。<br><code>java.util.function</code> 包中含有很多这样的接口定义。</p>
+<p><code>Predicate&lt;T&gt;</code>,<code>Consumer&lt;T&gt;</code>,<code>Function&lt;T, R&gt;</code>。</p>
+<p>再看 lambda 表达式(2)，方法引用目的是为了代码的重用。某些情况下比 lambda 表达式可读性更好。如上面的<code>inventory.sort(Comparator.comparingInt((Apple::getWeight)));</code> 代码，可读性更好。</p>
+<p>有三种主要的方法引用：</p>
+<ol>
+<li>静态方法引用， <code>Integer::parseInt</code></li>
+<li>特定类型的实例方法，如 <code>String:length</code></li>
+<li>1已存在对象的实例方法</li>
+</ol>
+<p>构造函数引用，可以使<code>ClassName::new</code>方式来构造对象:<br>如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Supplier&lt;Apple&gt; c1 = Apple::<span class="keyword">new</span>;</div><div class="line">Apple a1 = c1.get();</div></pre></td></tr></table></figure>
+<h2 id="函数式数据处理"><a href="#函数式数据处理" class="headerlink" title="函数式数据处理"></a>函数式数据处理</h2><p>Streams 是 Java 8 带来的新 API，提供声明式的的数据集合的操作，而且能显式的并行处理数据，无需书写多线程代码。</p>
+<ol>
+<li>声明式：代码精炼、可读性更好</li>
+<li>组合式：更灵活</li>
+<li>并行：更好的性能</li>
+</ol>
 
       
     </div>
@@ -400,7 +436,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Lighttpd/" rel="tag"># Lighttpd</a>
+            <a href="/tags/Java/" rel="tag"># Java</a>
           
         </div>
       
@@ -413,8 +449,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/04/07/lighttpd-4/" rel="next" title="Lighttpd 源码分析（3）IO事件处理实现">
-                <i class="fa fa-chevron-left"></i> Lighttpd 源码分析（3）IO事件处理实现
+              <a href="/2017/04/12/mysql-sql/" rel="next" title="MySQL 开发要点">
+                <i class="fa fa-chevron-left"></i> MySQL 开发要点
               </a>
             
           </div>
@@ -422,10 +458,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/04/12/mysql-sql/" rel="prev" title="MySQL 开发要点">
-                MySQL 开发要点 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -552,7 +584,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#通信模型"><span class="nav-number">1.</span> <span class="nav-text">通信模型</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么有-Java-8"><span class="nav-number">1.</span> <span class="nav-text">为什么有 Java 8 ?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Lambda-表达式"><span class="nav-number">2.</span> <span class="nav-text">Lambda 表达式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么时候使用-lambda-表达式"><span class="nav-number">2.1.</span> <span class="nav-text">什么时候使用 lambda 表达式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数式数据处理"><span class="nav-number">3.</span> <span class="nav-text">函数式数据处理</span></a></li></ol></div>
             
 
           </div>
