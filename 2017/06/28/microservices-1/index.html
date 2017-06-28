@@ -88,24 +88,24 @@
 
 
 <meta name="description" content="前言微服务架构模式反复的在各大架构会议中提到，其热度可见一斑。各大互联网企业已经慢慢的将系统架构朝微服务发展，究竟什么是微服务架构？它和完全独立统一部署的的架构(monolithic)和 SOA 架构有什么区别？
-原型的描述无论实现风格是怎样的，第一个核心的概念就是 独立部署单元，每一个微服务架构的组件都是作为独立的部署单元，这样满足高效的持续交付，水平和处置扩展能力强，而且业务之间相互解耦。
-最">
+原型的描述无论实现风格是怎样的，第一个核心的概念就是 独立部署单元，每一个微服务架构的组件都是作为独立的部署单元，这样满足高效的持续交付，扩展能力强，而且业务之间相互解耦。
+最重要的概念">
 <meta property="og:type" content="article">
 <meta property="og:title" content="微服务简介(译)">
 <meta property="og:url" content="http://yoursite.com/2017/06/28/microservices-1/index.html">
 <meta property="og:site_name" content="lv12312's blog">
 <meta property="og:description" content="前言微服务架构模式反复的在各大架构会议中提到，其热度可见一斑。各大互联网企业已经慢慢的将系统架构朝微服务发展，究竟什么是微服务架构？它和完全独立统一部署的的架构(monolithic)和 SOA 架构有什么区别？
-原型的描述无论实现风格是怎样的，第一个核心的概念就是 独立部署单元，每一个微服务架构的组件都是作为独立的部署单元，这样满足高效的持续交付，水平和处置扩展能力强，而且业务之间相互解耦。
-最">
+原型的描述无论实现风格是怎样的，第一个核心的概念就是 独立部署单元，每一个微服务架构的组件都是作为独立的部署单元，这样满足高效的持续交付，扩展能力强，而且业务之间相互解耦。
+最重要的概念">
 <meta property="og:image" content="http://yoursite.com/2017/06/28/microservices-1/api rest.png">
 <meta property="og:image" content="http://yoursite.com/2017/06/28/microservices-1/app rest.png">
 <meta property="og:image" content="http://yoursite.com/2017/06/28/microservices-1/msg .png">
-<meta property="og:updated_time" content="2017-06-28T00:38:15.000Z">
+<meta property="og:updated_time" content="2017-06-28T00:40:41.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="微服务简介(译)">
 <meta name="twitter:description" content="前言微服务架构模式反复的在各大架构会议中提到，其热度可见一斑。各大互联网企业已经慢慢的将系统架构朝微服务发展，究竟什么是微服务架构？它和完全独立统一部署的的架构(monolithic)和 SOA 架构有什么区别？
-原型的描述无论实现风格是怎样的，第一个核心的概念就是 独立部署单元，每一个微服务架构的组件都是作为独立的部署单元，这样满足高效的持续交付，水平和处置扩展能力强，而且业务之间相互解耦。
-最">
+原型的描述无论实现风格是怎样的，第一个核心的概念就是 独立部署单元，每一个微服务架构的组件都是作为独立的部署单元，这样满足高效的持续交付，扩展能力强，而且业务之间相互解耦。
+最重要的概念">
 <meta name="twitter:image" content="http://yoursite.com/2017/06/28/microservices-1/api rest.png">
 
 
@@ -384,7 +384,7 @@
 
       
         <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>微服务架构模式反复的在各大架构会议中提到，其热度可见一斑。各大互联网企业已经慢慢的将系统架构朝微服务发展，究竟什么是微服务架构？它和完全独立统一部署的的架构(monolithic)和 SOA 架构有什么区别？</p>
-<h2 id="原型的描述"><a href="#原型的描述" class="headerlink" title="原型的描述"></a>原型的描述</h2><p>无论实现风格是怎样的，第一个核心的概念就是 <strong>独立部署单元</strong>，每一个微服务架构的组件都是作为独立的部署单元，这样满足高效的持续交付，水平和处置扩展能力强，而且业务之间相互解耦。</p>
+<h2 id="原型的描述"><a href="#原型的描述" class="headerlink" title="原型的描述"></a>原型的描述</h2><p>无论实现风格是怎样的，第一个核心的概念就是 <strong>独立部署单元</strong>，每一个微服务架构的组件都是作为独立的部署单元，这样满足高效的持续交付，扩展能力强，而且业务之间相互解耦。</p>
 <p>最重要的概念是 <strong>服务单元</strong> （ service component ）。服务组件由一个或者多个模块组成，其包含一组功能明确的功能，或者是大型业务应用的独立组成部分。<strong>设计服务组件粒度的大小是微服务架构最具有挑战的工作。</strong></p>
 <p>微服务架构模式中另外一个核心概念是 <strong>分布式</strong> 架构，意味着所有的微服务架构中的组件完全同其他组件解耦，他们之间通过远程访问协议通讯（ 如：JMS, AMQP, REST, SOAP, RMI 等 ）。分布式天然的获得了超强的水平扩展能力和易部署的特性。</p>
 <p>微服务架构是从其他架构中进化而来的，并不是什么全新的架构。主要来自于：独立统一部署的的架构(monolithic)的分层架构模式和分布式应用的 SOA 架构模式。微服务解决上述两种架构的问题：1. 独立统一部署的架构的持续交付和扩展性差等问题；2. SOA 架构模式的并非真正的分布式和去中心化问题，微服务架构服务单元间弱依赖和轻通信，SOA 架构过于复杂，而且成本高昂。微服务架构模式可以理解为清爽型 SOA 架构模式。</p>
