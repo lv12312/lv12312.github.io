@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="入门," />
+  <meta name="keywords" content="JavaScript,React," />
 
 
 
@@ -87,19 +87,19 @@
 
 
 
-<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta name="description" content="1. 容易迷路的this建议使用 ES6 的箭头函数（俗称胖箭头）=&amp;gt; 避免 this 的迷失。不熟悉的同学可参考文档，https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions 语法：
+12345678910(param1, param2, …, paramN) =&amp;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2017/03/20/hello-world/index.html">
+<meta property="og:title" content="React 注意点（新手向）">
+<meta property="og:url" content="http://yoursite.com/2017/07/14/react-1/index.html">
 <meta property="og:site_name" content="lv12312's blog">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
-<meta property="og:updated_time" content="2017-03-20T01:14:14.000Z">
+<meta property="og:description" content="1. 容易迷路的this建议使用 ES6 的箭头函数（俗称胖箭头）=&amp;gt; 避免 this 的迷失。不熟悉的同学可参考文档，https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions 语法：
+12345678910(param1, param2, …, paramN) =&amp;">
+<meta property="og:updated_time" content="2017-07-13T16:39:10.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta name="twitter:title" content="React 注意点（新手向）">
+<meta name="twitter:description" content="1. 容易迷路的this建议使用 ES6 的箭头函数（俗称胖箭头）=&amp;gt; 避免 this 的迷失。不熟悉的同学可参考文档，https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions 语法：
+12345678910(param1, param2, …, paramN) =&amp;">
 
 
 
@@ -127,13 +127,13 @@ Quick">
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/03/20/hello-world/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/07/14/react-1/"/>
 
 
 
 
 
-  <title> Hello World | lv12312's blog </title>
+  <title> React 注意点（新手向） | lv12312's blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -272,7 +272,7 @@ Quick">
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/20/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/14/react-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Lemon Lv">
@@ -293,7 +293,7 @@ Quick">
             
             
               
-                Hello World
+                React 注意点（新手向）
               
             
           </h2>
@@ -308,8 +308,8 @@ Quick">
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-20T09:14:14+08:00">
-                2017-03-20
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-14T00:37:20+08:00">
+                2017-07-14
               </time>
             
 
@@ -331,8 +331,8 @@ Quick">
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/入门/" itemprop="url" rel="index">
-                    <span itemprop="name">入门</span>
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
                   </a>
                 </span>
 
@@ -366,16 +366,31 @@ Quick">
       
 
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
+        <h2 id="1-容易迷路的this"><a href="#1-容易迷路的this" class="headerlink" title="1. 容易迷路的this"></a>1. 容易迷路的<code>this</code></h2><p>建议使用 ES6 的箭头函数（俗称胖箭头）<code>=&gt;</code> 避免 <code>this</code> 的迷失。不熟悉的同学可参考文档，<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions" target="_blank" rel="external">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions</a><br> 语法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">(param1, param2, …, paramN) =&gt; &#123; statements &#125;</div><div class="line">(param1, param2, …, paramN) =&gt; expression</div><div class="line"><span class="comment">// equivalent to: (param1, param2, …, paramN) =&gt; &#123; return expression; &#125;</span></div><div class="line"></div><div class="line"><span class="comment">// Parentheses are optional when there's only one parameter name:</span></div><div class="line">(singleParam) =&gt; &#123; statements &#125;</div><div class="line">singleParam =&gt; &#123; statements &#125;</div><div class="line"></div><div class="line"><span class="comment">// A function with no parameters should be written with a pair of parentheses.</span></div><div class="line">() =&gt; &#123; statements &#125;</div></pre></td></tr></table></figure>
+<p>箭头函数最大的特点就是不会绑定函数自己的<code>this</code>，所以在函数里面用的<code>this</code>都是来自函数所属上下文的<code>this</code>。</p>
+<h2 id="2-条件渲染"><a href="#2-条件渲染" class="headerlink" title="2. 条件渲染"></a>2. 条件渲染</h2><p>使用<code>&amp;&amp;</code>和三目运算符</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Mailbox</span>(<span class="params">props</span>) </span>&#123;<span class="keyword">const</span> unreadMessages = props.unreadMessages;<span class="keyword">return</span> (&lt;div&gt;&lt;h1&gt;Hello!&lt;/h1&gt;</div><div class="line">      &#123;unreadMessages.length &gt; 0 &amp;&amp;</div><div class="line">        &lt;h2&gt;</div><div class="line">          You have &#123;unreadMessages.length&#125; unread messages.</div><div class="line">        &lt;/h2&gt;</div><div class="line">      &#125;</div><div class="line">    &lt;/div&gt;);&#125;<span class="keyword">const</span> messages = [<span class="string">'React'</span>, <span class="string">'Re: React'</span>, <span class="string">'Re:Re: React'</span>];ReactDOM.render(&lt;Mailbox unreadMessages=&#123;messages&#125; /&gt;,document.getElementById('root'));</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">render() &#123;<span class="keyword">const</span> isLoggedIn = <span class="keyword">this</span>.state.isLoggedIn;<span class="keyword">return</span> (&lt;div&gt;</div><div class="line">      The user is &lt;b&gt;&#123;isLoggedIn ? 'currently' : 'not'&#125;&lt;/b&gt; logged in.</div><div class="line">    &lt;/div&gt;);&#125;</div></pre></td></tr></table></figure>
+<h2 id="3-生命周期"><a href="#3-生命周期" class="headerlink" title="3. 生命周期"></a>3. 生命周期</h2><p>组件的生命周期包含多个<code>生命周期方法</code>，带有<code>will</code> 的方法发生在某些事件发生之前，带有<code>did</code>的方法发生在某些事件发生之后。</p>
+<h3 id="3-1-组装"><a href="#3-1-组装" class="headerlink" title="3.1 组装"></a>3.1 组装</h3><ul>
+<li><code>constructor()</code> ，初始化默认的<code>state</code></li>
+<li><code>componentWillMount()</code>，通常用来作为服务器端的页面初始化</li>
+<li><code>render()</code></li>
+<li><code>componentDidMount</code>，在页面装载之后调用，通常用来服务器渲染页面的辅助信息，如一些复选框的选项等。</li>
+</ul>
+<h3 id="3-2-更新"><a href="#3-2-更新" class="headerlink" title="3.2 更新"></a>3.2 更新</h3><ul>
+<li><code>componentWillReceiveProps()</code>，组装好的组件如果收到新的 props 该方法将会被调用，可用来处理来自服务端异步返回的数据。</li>
+<li><code>shouldComponentUpdate()</code>，使用该方法让 React 知道组件的输出有没有被目前的 state 或者 props 影响到，很少使用到。默认返回 true, 如果返回 false, 后面的3个方法就不会被调用。</li>
+<li><code>componentWillUpdate()</code>，通常用来做渲染前的数据处理，但是不能调用<code>this.setState()</code>, 如果有需要应该放在<code>componentWillReceiveProps()</code></li>
+<li><code>render()</code>，不要在该方法里面调用<code>this.setState()</code></li>
+<li><code>componentDidUpdate()</code>，更新结束之后调用的方法</li>
+</ul>
+<h3 id="3-2-卸载"><a href="#3-2-卸载" class="headerlink" title="3.2 卸载"></a>3.2 卸载</h3><p>组件从 DOM 中移除时调用的方法，对本页面进行清理，常被用来清除<code>timer</code>。</p>
+<ul>
+<li><code>componentWillUnmount()</code></li>
+</ul>
+<h2 id="4-用this-setState-方法修改页面展现数据"><a href="#4-用this-setState-方法修改页面展现数据" class="headerlink" title="4. 用this.setState() 方法修改页面展现数据"></a>4. 用<code>this.setState()</code> 方法修改页面展现数据</h2><h2 id="注意点：请使用-ES6-语法"><a href="#注意点：请使用-ES6-语法" class="headerlink" title="注意点：请使用 ES6 语法"></a>注意点：请使用 ES6 语法</h2>
       
     </div>
 
@@ -398,7 +413,9 @@ Quick">
       
         <div class="post-tags">
           
-            <a href="/tags/入门/" rel="tag"># 入门</a>
+            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          
+            <a href="/tags/React/" rel="tag"># React</a>
           
         </div>
       
@@ -411,15 +428,15 @@ Quick">
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2017/06/28/microservices-1/" rel="next" title="微服务简介(译)">
+                <i class="fa fa-chevron-left"></i> 微服务简介(译)
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/03/20/hexo-build/" rel="prev" title="Hexo 个人博客搭建">
-                Hexo 个人博客搭建 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -544,7 +561,7 @@ Quick">
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-容易迷路的this"><span class="nav-number">1.</span> <span class="nav-text">1. 容易迷路的this</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-条件渲染"><span class="nav-number">2.</span> <span class="nav-text">2. 条件渲染</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-生命周期"><span class="nav-number">3.</span> <span class="nav-text">3. 生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-组装"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 组装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-更新"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 更新</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-卸载"><span class="nav-number">3.3.</span> <span class="nav-text">3.2 卸载</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-用this-setState-方法修改页面展现数据"><span class="nav-number">4.</span> <span class="nav-text">4. 用this.setState() 方法修改页面展现数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注意点：请使用-ES6-语法"><span class="nav-number">5.</span> <span class="nav-text">注意点：请使用 ES6 语法</span></a></li></ol></div>
             
 
           </div>
