@@ -344,7 +344,7 @@
       
         
           
-            <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>Supervisor是客户端/服务端系统，使得用户能够控制Unix类操作系统上的进程，有这几点值得肯定：</p>
+            <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p><a href="http://supervisord.org/" target="_blank" rel="external">Supervisor</a>是客户端/服务端系统，使得用户能够控制Unix类操作系统上的进程，有这几点值得肯定:</p>
 <h3 id="方便"><a href="#方便" class="headerlink" title="方便"></a>方便</h3><p>普通情况下一般都是写<code>rc.d</code>脚本文件来控制进程实例。<code>rc.d</code>文件用来控制进程的初始化、自动启动和管理，但是书写和管理这些脚本并不容易，而且，<code>rc.d</code>脚本并不能自动重启crash掉的进程。Supervisor 将进程作为其子进程来启动，所以能够做到crash的进程能够自动重启。</p>
 <h3 id="精确"><a href="#精确" class="headerlink" title="精确"></a>精确</h3><p>通常在Unix系统中很难获得进程的 up/down 状态。Supervisor 将进程作为子进程来启动，这样很容易获得其运行的状态。</p>
 <h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h2><p>简单，中心化，高效，可扩展，可移植，值得信赖</p>
@@ -362,10 +362,12 @@
 <h3 id="运行supervisord"><a href="#运行supervisord" class="headerlink" title="运行supervisord"></a>运行supervisord</h3><p>启动supervisord，执行<code>$BINDIR/supervisord</code>，进程的结果是守护的，同当前的终端无关。运行日志默认在<code>$CWD/supervisor.log</code>。<code>-n</code>启动选项用来诊断程序。</p>
 <h2 id="信号"><a href="#信号" class="headerlink" title="信号"></a>信号</h2><p>supervisord需要发送信号来执行操作。保存supervisord进程Id的<code>pidfile</code>默认在<code>$CWD/supervisord.pid</code></p>
 <h2 id="supervisord自动运行"><a href="#supervisord自动运行" class="headerlink" title="supervisord自动运行"></a>supervisord自动运行</h2><p>参考github上的脚本</p>
-<h2 id="配置文件示例："><a href="#配置文件示例：" class="headerlink" title="配置文件示例："></a>配置文件示例：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">[supervisord]</div><div class="line">loglevel=info</div><div class="line"></div><div class="line">[supervisorctl]</div><div class="line"></div><div class="line">[program:shadowsocks]</div><div class="line">command=/home/dl.sh</div><div class="line">autostart=true</div><div class="line">autorestart=true</div><div class="line">redirect_stderr=true</div><div class="line">tderr_logfile=/home/lv12312/err.log</div><div class="line">stdout_logfile=/home/lv12312/out.log</div></pre></td></tr></table></figure>
+<h2 id="配置文件示例："><a href="#配置文件示例：" class="headerlink" title="配置文件示例："></a>配置文件示例：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">[supervisord]</div><div class="line">loglevel=info</div><div class="line"></div><div class="line">[supervisorctl]</div><div class="line"></div><div class="line">[program:dl]</div><div class="line">command=/home/dl.sh</div><div class="line">autostart=true</div><div class="line">autorestart=true</div><div class="line">redirect_stderr=true</div><div class="line">tderr_logfile=/home/lv12312/err.log</div><div class="line">stdout_logfile=/home/lv12312/out.log</div></pre></td></tr></table></figure>
 <p>启动命令<br><code>sudo supervisord -c supervisord.conf</code></p>
 <h2 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h2><p>Docker 容器在启动的时候一般使用单个进程，如果需要启动多个进程时，一般是把多个进程的启动放在一个启动脚本里面，需要写启动脚本，不是很方便，这里可以使用 supervisor 来作为 Docker 的多进程管理工具。使用方法类似上面讲的，启动入口稍作修改即可：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">CMD [&quot;/usr/bin/supervisord&quot;]</div></pre></td></tr></table></figure>
+<p>注意，supervisor 这里不要作为守护进程启动，配置增加：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[supervisord]</div><div class="line">nodaemon=true</div></pre></td></tr></table></figure>
 <h2 id="额外收益"><a href="#额外收益" class="headerlink" title="额外收益"></a>额外收益</h2><ol>
 <li>Mac 本地可以用 supervisor 来自启动一些二进制程序，比如（SS, 注册机之类的，你懂得！！）</li>
 <li>有些程序（比如 Golang 语言编写一些软件）日志只输出到 stderr 和  stdout， 也可以用 supervisor 输出到文本文件，配置起来非常方便</li>
